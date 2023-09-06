@@ -6,7 +6,7 @@ Gio Velasco, and Peter Owolabi to create a
 quaternary calculator to allow users to be
 able to perform various quaternary calculations.
 
-Front end Meeeting 9/1/2023
+Front end Meeting 9/1/2023
 Jaden, Gio, and Peter
 
 Gio Tasks:
