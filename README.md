@@ -20,3 +20,6 @@ Implementation of Addition and Subtraction buttons on the calculator.
 Jarod Tasks:
 Designing GUI layout of calculator.
 Implementation of Multiplication and Division buttons on the calculator.
+
+9/6/2023:
+GUI has been built and is ready for logic to be assigned to buttons.
