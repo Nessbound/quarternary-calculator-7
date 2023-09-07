@@ -102,8 +102,10 @@ public class GUI extends JFrame{
                 public void actionPerformed(ActionEvent e) {
                     if (firstNumber == 0)
                         output.setText(null);
-                    output.setText(output.getText() + finalI);
-                    firstNumber += finalI;
+                    String newFirstNumber = output.getText() + finalI;
+                    output.setText(newFirstNumber);
+                    firstNumber = Integer.parseInt(newFirstNumber);
+                    System.out.println(firstNumber);
                 }
             });
         }
@@ -155,6 +157,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 output.setText("0");
+                firstNumber = 0;
             }
         });
         btnEquals.addActionListener(new ActionListener() {
