@@ -1,12 +1,17 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUI extends JFrame{
+    private int firstNumber;
+    private int secondNumber;
 
-    JButton btnAdd, btnSubtract, btnDivide, btnMultiply, btnClear,
+    private JButton btnAdd, btnSubtract, btnDivide, btnMultiply, btnClear,
             btnEquals, btnSquare, btnSquareRoot;
-    JButton[] numBtn;
-    JTextField output;
+    private JButton[] numBtn;
+    private JTextField output;
     //String previous, current, operator;
 
     public GUI() {
@@ -88,9 +93,81 @@ public class GUI extends JFrame{
         mainPanel.add(row2);
         mainPanel.add(row3);
 
+        // Functionality
+        // For numbers
+        for (int i = 0; i < numBtn.length; i++) {
+            int finalI = i;
+            numBtn[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (firstNumber == 0)
+                        output.setText(null);
+                    output.setText(output.getText() + finalI);
+                    firstNumber += finalI;
+                }
+            });
+        }
+
+        // For Addition Subtraction
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        btnSubtract.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+
+        // For Multiplication Division
+        btnMultiply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        btnDivide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+
+        // For Square Square Root
+        btnSquare.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+        btnSquareRoot.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
+
+        // For Clear Equals
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                output.setText("0");
+            }
+        });
+        btnEquals.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
         // Making the Main panel visible
         this.add(mainPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
         this.setVisible(true);
         this.setSize(275,225);
 
@@ -99,5 +176,4 @@ public class GUI extends JFrame{
     public static void main(String[] args){
         new GUI();
     }
-
 }
