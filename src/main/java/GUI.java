@@ -158,6 +158,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                handleOperatorClick('*');
             }
         });
         btnDivide.addActionListener(new ActionListener() {
@@ -167,6 +168,7 @@ public class GUI extends JFrame{
                 // if (secondNumber == 0){
                 //      output.setText("Err: /0");
                 // }
+                handleOperatorClick('/');
             }
         });
 
@@ -190,6 +192,7 @@ public class GUI extends JFrame{
             public void actionPerformed(ActionEvent actionEvent) {
                 output.setText("0");
                 firstNumber = 0;
+                secondNumber = 0;
             }
         });
 
@@ -269,6 +272,24 @@ public class GUI extends JFrame{
         }
         else if (operator == '-') {
             int result = quaternary.quaternarySubtraction(firstNumber, secondNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '*') {
+            int result = quaternary.quaternaryMultiplication(firstNumber, secondNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '/') {
+            int result = quaternary.quaternaryDivision(firstNumber, secondNumber);
             if(toggleMode == "Quaternary") {
                 output.setText(Integer.toString(result));
             }
