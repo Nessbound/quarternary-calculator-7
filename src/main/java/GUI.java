@@ -8,6 +8,8 @@ public class GUI extends JFrame{
     private int firstNumber;
     private int secondNumber;
 
+    private char operator;
+
     private JButton btnAdd, btnSubtract, btnDivide, btnMultiply, btnClear,
             btnEquals, btnSquare, btnSquareRoot;
     private JButton[] numBtn;
@@ -113,12 +115,17 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                handleOperatorClick('+');
+
+
             }
         });
         btnSubtract.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                handleOperatorClick('-');
+
             }
         });
 
@@ -150,6 +157,16 @@ public class GUI extends JFrame{
             }
         });
 
+        // For Equals
+        btnEquals.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (operator != '\0') {
+                    performOperation();
+                }
+            }
+        });
+
         // For Clear Equals
         btnClear.addActionListener(new ActionListener() {
             @Override
@@ -172,8 +189,41 @@ public class GUI extends JFrame{
         this.setSize(275,225);
 
     }
+    private void handleOperatorClick(char op) {
+        if (operator == '\0') {
+            operator = op;
+            String currentText = output.getText();
+            firstNumber = Integer.parseInt(currentText);
+            output.setText("0");
+        } else {
+            performOperation();
+            operator = op;
+        }
+    }
+    // Method to perform addition or subtraction
+    private void performOperation() {
+        String currentText = output.getText();
+        secondNumber = Integer.parseInt(currentText);
+
+        if (operator == '+') {
+            int result = firstNumber + secondNumber;
+            output.setText(Integer.toString(result));
+        } else if (operator == '-') {
+            int result = firstNumber - secondNumber;
+            output.setText(Integer.toString(result));
+        }
+
+        operator = '\0';
+    }
+
+    // ... (rest of your code remains the same)
+
+
+
+
 
     public static void main(String[] args){
         new GUI();
     }
 }
+
