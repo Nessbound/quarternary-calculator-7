@@ -221,7 +221,7 @@ public class GUI extends JFrame{
                     btnToggle.setText(toggleMode);
                     if(showingOutput) {
                         int outputNum = Integer.parseInt(output.getText());
-                        output.setText(Integer.toString(quaternary.decimalToQuaternary(outputNum)));
+                        output.setText(Integer.toString(quaternary.quaternaryToDecimal(outputNum)));
                     }
                 }
                 else {
@@ -229,7 +229,7 @@ public class GUI extends JFrame{
                     btnToggle.setText(toggleMode);
                     if(showingOutput) {
                         int outputNum = Integer.parseInt(output.getText());
-                        output.setText(Integer.toString(quaternary.quaternaryToDecimal(outputNum)));
+                        output.setText(Integer.toString(quaternary.decimalToQuaternary(outputNum)));
                     }
                 }
             }
