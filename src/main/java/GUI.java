@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame{
     private int firstNumber;
     private int secondNumber;
+    private Quaternary quaternary;
 
     private char operator;
 
@@ -104,10 +105,18 @@ public class GUI extends JFrame{
                 public void actionPerformed(ActionEvent e) {
                     if (firstNumber == 0)
                         output.setText(null);
-                    String newFirstNumber = output.getText() + finalI;
-                    output.setText(newFirstNumber);
-                    firstNumber = Integer.parseInt(newFirstNumber);
-                    System.out.println(firstNumber);
+                    if(operator == '\0') {
+                        String newFirstNumber = output.getText() + finalI;
+                        output.setText(newFirstNumber);
+                        firstNumber = Integer.parseInt(newFirstNumber);
+                        System.out.println("First Num: " + firstNumber);
+                    }
+                    else {
+                        String newSecondNumber = output.getText() + finalI;
+                        output.setText(newSecondNumber);
+                        secondNumber = Integer.parseInt(newSecondNumber);
+                        System.out.println("Second Num: " + secondNumber);
+                    }
                 }
             });
         }
@@ -205,14 +214,15 @@ public class GUI extends JFrame{
     }
     // Method to perform addition or subtraction
     private void performOperation() {
+        quaternary = new Quaternary();
         String currentText = output.getText();
         secondNumber = Integer.parseInt(currentText);
 
         if (operator == '+') {
-            int result = firstNumber + secondNumber;
+            int result = quaternary.quaternaryAddition(firstNumber, secondNumber);
             output.setText(Integer.toString(result));
         } else if (operator == '-') {
-            int result = firstNumber - secondNumber;
+            int result = quaternary.quaternarySubtraction(firstNumber, secondNumber);
             output.setText(Integer.toString(result));
         }
 

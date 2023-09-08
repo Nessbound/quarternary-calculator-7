@@ -49,7 +49,6 @@ public class Quaternary {
     public int quaternarySubtraction(int qNumOne, int qNumTwo) {
         int qIntOne = quaternaryToDecimal(qNumOne);
         int qIntTwo = quaternaryToDecimal(qNumTwo);
-        System.out.println(qIntOne + "\n" + qIntTwo);
         int qIntDif = qIntOne - qIntTwo;
         return decimalToQuaternary(qIntDif);
     }
