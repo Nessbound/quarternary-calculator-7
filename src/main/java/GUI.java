@@ -103,8 +103,9 @@ public class GUI extends JFrame{
             numBtn[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (firstNumber == 0)
+                    if (firstNumber == 0){
                         output.setText(null);
+                    }
                     if(operator == '\0') {
                         String newFirstNumber = output.getText() + finalI;
                         output.setText(newFirstNumber);
@@ -112,6 +113,9 @@ public class GUI extends JFrame{
                         System.out.println("First Num: " + firstNumber);
                     }
                     else {
+                        if (secondNumber == 0){
+                            output.setText(null);
+                        }
                         String newSecondNumber = output.getText() + finalI;
                         output.setText(newSecondNumber);
                         secondNumber = Integer.parseInt(newSecondNumber);
@@ -127,8 +131,6 @@ public class GUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 // TODO
                 handleOperatorClick('+');
-
-
             }
         });
         btnSubtract.addActionListener(new ActionListener() {
@@ -168,28 +170,30 @@ public class GUI extends JFrame{
             }
         });
 
-        // For Equals
-        btnEquals.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (operator != '\0') {
-                    performOperation();
-                }
-            }
-        });
-
-        // For Clear Equals
+        // For Clear
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 output.setText("0");
                 firstNumber = 0;
+                if (secondNumber == 0){
+                    output.setText("Err: /0");
+                }
             }
         });
+
+        // For Equals
         btnEquals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                String firstNum = String.valueOf(firstNumber);
+                String secondNum = String.valueOf(secondNumber);
+                if (!firstNum.matches("[0123]+") || !secondNum.matches("[0123]+")){
+                    output.setText("use num btns");
+                }
+                else{
+                    performOperation();
+                }
             }
         });
 
@@ -212,6 +216,7 @@ public class GUI extends JFrame{
             operator = op;
         }
     }
+
     // Method to perform addition or subtraction
     private void performOperation() {
         quaternary = new Quaternary();
@@ -221,11 +226,11 @@ public class GUI extends JFrame{
         if (operator == '+') {
             int result = quaternary.quaternaryAddition(firstNumber, secondNumber);
             output.setText(Integer.toString(result));
-        } else if (operator == '-') {
+        }
+        else if (operator == '-') {
             int result = quaternary.quaternarySubtraction(firstNumber, secondNumber);
             output.setText(Integer.toString(result));
         }
-
         operator = '\0';
     }
 
