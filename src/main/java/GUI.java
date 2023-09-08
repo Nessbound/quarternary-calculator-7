@@ -153,6 +153,9 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
+                // if (secondNumber == 0){
+                //      output.setText("Err: /0");
+                // }
             }
         });
 
@@ -176,9 +179,6 @@ public class GUI extends JFrame{
             public void actionPerformed(ActionEvent actionEvent) {
                 output.setText("0");
                 firstNumber = 0;
-                if (secondNumber == 0){
-                    output.setText("Err: /0");
-                }
             }
         });
 
@@ -186,10 +186,13 @@ public class GUI extends JFrame{
         btnEquals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                secondNumber = Integer.parseInt(output.getText());
                 String firstNum = String.valueOf(firstNumber);
                 String secondNum = String.valueOf(secondNumber);
+                System.out.println(firstNum);
+                System.out.println(secondNum);
                 if (!firstNum.matches("[0123]+") || !secondNum.matches("[0123]+")){
-                    output.setText("use num btns");
+                    output.setText("use btns");
                 }
                 else{
                     performOperation();
@@ -220,9 +223,6 @@ public class GUI extends JFrame{
     // Method to perform addition or subtraction
     private void performOperation() {
         quaternary = new Quaternary();
-        String currentText = output.getText();
-        secondNumber = Integer.parseInt(currentText);
-
         if (operator == '+') {
             int result = quaternary.quaternaryAddition(firstNumber, secondNumber);
             output.setText(Integer.toString(result));
