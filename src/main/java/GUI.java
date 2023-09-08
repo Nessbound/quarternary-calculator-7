@@ -140,16 +140,13 @@ public class GUI extends JFrame{
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 handleOperatorClick('+');
             }
         });
         btnSubtract.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 handleOperatorClick('-');
-
             }
         });
 
@@ -157,17 +154,12 @@ public class GUI extends JFrame{
         btnMultiply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 handleOperatorClick('*');
             }
         });
         btnDivide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
-                // if (secondNumber == 0){
-                //      output.setText("Err: /0");
-                // }
                 handleOperatorClick('/');
             }
         });
@@ -219,6 +211,7 @@ public class GUI extends JFrame{
         btnToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if (showingOutput){
                 if(toggleMode == "Quaternary") {
                     toggleMode = "Decimal";
                     btnToggle.setText(toggleMode);
@@ -235,6 +228,7 @@ public class GUI extends JFrame{
                         output.setText(Integer.toString(quaternary.decimalToQuaternary(outputNum)));
                     }
                 }
+            }
             }
         });
 
@@ -289,12 +283,17 @@ public class GUI extends JFrame{
             }
         }
         else if (operator == '/') {
-            int result = quaternary.quaternaryDivision(firstNumber, secondNumber);
-            if(toggleMode == "Quaternary") {
-                output.setText(Integer.toString(result));
+            if (secondNumber == 0){
+                output.setText("Err: /0");
             }
-            else {
-                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            else{
+                int result = quaternary.quaternaryDivision(firstNumber, secondNumber);
+                if(toggleMode == "Quaternary") {
+                    output.setText(Integer.toString(result));
+                }
+                else {
+                    output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+                }
             }
         }
         operator = '\0';
