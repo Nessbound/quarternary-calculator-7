@@ -4,6 +4,9 @@ public class Quaternary {
     /* This function works by making the quat a string, then adding all its parts together
        with the power in its position */
     public int quaternaryToDecimal(int quaternaryNum) {
+        if(quaternaryNum == 0) {
+            return 0;
+        }
         int decimalNum = 0;
         int currentNum;
         boolean isNegative = (quaternaryNum < 0);
@@ -22,6 +25,9 @@ public class Quaternary {
        then builds the rest out with a four loop that checks the biggest number you
        can have on that power level :)                                             */
     public int decimalToQuaternary(int decimalNum) {
+        if(decimalNum == 0) {
+            return 0;
+        }
         boolean isNegative = (decimalNum < 0);
         String quaternaryString = "";
         int decimalSub = Math.abs(decimalNum);
