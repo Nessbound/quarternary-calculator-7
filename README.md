@@ -6,6 +6,9 @@ Gio Velasco, and Peter Owolabi to create a
 quaternary calculator to allow users to be
 able to perform various quaternary calculations.
 
+## Images
+![img.png](img.png)
+
 ## How to Use The Calculator
 This calculator performs calculations using the 
 quaternary numerical system, with the option to 
