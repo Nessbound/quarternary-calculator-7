@@ -11,11 +11,15 @@ public class QuaternaryDivisionTest {
         int qTwoQuotTwo = 12;
         int qOneQuotThree = 23;
         int qTwoQuotThree = 2;
+        int qOneQuotFour = 10;
+        int qTwoQuotFour = -2;
         int qQuotOne = quaternary.quaternaryDivision(qOneQuotOne, qTwoQuotOne);
         int qQuotTwo = quaternary.quaternaryDivision(qOneQuotTwo, qTwoQuotTwo);
         int qQuotThree = quaternary.quaternaryDivision(qOneQuotThree, qTwoQuotThree);
+        int qQuotFour = quaternary.quaternaryDivision(qOneQuotFour, qTwoQuotFour); // Tests negatives
         Assertions.assertEquals(30, qQuotOne);
         Assertions.assertEquals(21, qQuotTwo);
         Assertions.assertEquals(11, qQuotThree);
+        Assertions.assertEquals(-2, qQuotFour);
     }
 }

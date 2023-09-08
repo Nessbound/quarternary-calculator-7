@@ -6,10 +6,14 @@ public class Quaternary {
     public int quaternaryToDecimal(int quaternaryNum) {
         int decimalNum = 0;
         int currentNum;
-        String quaternaryString = Integer.toString(quaternaryNum);
+        boolean isNegative = (quaternaryNum < 0);
+        String quaternaryString = Integer.toString(Math.abs(quaternaryNum));
         for(int i = 0; i < quaternaryString.length(); i++) {
             currentNum = Character.getNumericValue(quaternaryString.charAt(i));
             decimalNum += currentNum * (Math.pow(4, quaternaryString.length() - i - 1));
+        }
+        if(isNegative) {
+            return decimalNum * -1;
         }
         return decimalNum;
     }
@@ -18,8 +22,9 @@ public class Quaternary {
        then builds the rest out with a four loop that checks the biggest number you
        can have on that power level :)                                             */
     public int decimalToQuaternary(int decimalNum) {
+        boolean isNegative = (decimalNum < 0);
         String quaternaryString = "";
-        int decimalSub = decimalNum;
+        int decimalSub = Math.abs(decimalNum);
         int currentPower = 0;
         while(decimalSub - Math.pow(4, currentPower) >= 0) {
             currentPower++;
@@ -34,6 +39,9 @@ public class Quaternary {
                 }
             }
             currentPower--;
+        }
+        if(isNegative) {
+            return Integer.parseInt(quaternaryString) * -1;
         }
         return Integer.parseInt(quaternaryString);
     }
@@ -75,7 +83,7 @@ public class Quaternary {
     }
 
     public int quaternarySquareRoot(int qNum) {
-        int qInt = quaternaryToDecimal(qNum);
+        int qInt = Math.abs(quaternaryToDecimal(qNum));
         int qIntSquareRoot = (int)Math.round(Math.sqrt(qInt));
         return decimalToQuaternary(qIntSquareRoot);
     }
