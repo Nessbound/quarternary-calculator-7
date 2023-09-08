@@ -164,17 +164,17 @@ public class GUI extends JFrame{
             }
         });
 
-        // For Square Square Root
+        // For Square + Square Root
         btnSquare.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('\u00B2');
             }
         });
         btnSquareRoot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('R');
             }
         });
 
@@ -182,7 +182,7 @@ public class GUI extends JFrame{
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                output.setText("0");
+                output.setText("");
                 firstNumber = 0;
                 secondNumber = 0;
             }
@@ -294,6 +294,24 @@ public class GUI extends JFrame{
                 else {
                     output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
                 }
+            }
+        }
+        else if (operator == 'R') {
+            int result = quaternary.quaternarySquareRoot(firstNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '\u00B2') {
+            int result = quaternary.quaternarySquare(firstNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
             }
         }
         operator = '\0';
