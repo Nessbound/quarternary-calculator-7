@@ -7,7 +7,7 @@ quaternary calculator to allow users to be
 able to perform various quaternary calculations.
 
 ## Images
-![img.png](img.png)
+<img src="img.png"/>
 
 ## How to Use The Calculator
 This calculator performs calculations using the 
