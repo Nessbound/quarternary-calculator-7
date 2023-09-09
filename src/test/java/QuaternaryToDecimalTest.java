@@ -7,7 +7,7 @@ public class QuaternaryToDecimalTest {
         Quaternary quaternary = new Quaternary();
         int testQOne = 302;
         int testQTwo = 2;
-        int testQThree = 23;
+        int testQThree = -23;
         int testQFour = 0;
         int intTestOne = quaternary.quaternaryToDecimal(testQOne);
         int intTestTwo = quaternary.quaternaryToDecimal(testQTwo);
@@ -15,7 +15,7 @@ public class QuaternaryToDecimalTest {
         int intTestFour = quaternary.quaternaryToDecimal((testQFour));
         Assertions.assertEquals(50, intTestOne);
         Assertions.assertEquals(2, intTestTwo);
-        Assertions.assertEquals(11, intTestThree);
+        Assertions.assertEquals(-11, intTestThree);
         Assertions.assertEquals(0, intTestFour);
     }
 }

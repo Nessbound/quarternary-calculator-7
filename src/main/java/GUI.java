@@ -7,11 +7,14 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame{
     private int firstNumber;
     private int secondNumber;
+    private boolean showingOutput;
+    private String toggleMode;
+    private Quaternary quaternary;
 
     private char operator;
 
     private JButton btnAdd, btnSubtract, btnDivide, btnMultiply, btnClear,
-            btnEquals, btnSquare, btnSquareRoot;
+            btnEquals, btnSquare, btnSquareRoot, btnToggle;
     private JButton[] numBtn;
     private JTextField output;
     //String previous, current, operator;
@@ -26,8 +29,11 @@ public class GUI extends JFrame{
         JPanel row1 = new JPanel();
         JPanel row2 = new JPanel();
         JPanel row3 = new JPanel();
+        JPanel row4 = new JPanel();
 
         // Initialization of Components
+        toggleMode = "Quaternary";
+        showingOutput = false;
         output = new JTextField(16);
         btnSubtract = new JButton("-");
         btnAdd = new JButton("+");
@@ -37,6 +43,7 @@ public class GUI extends JFrame{
         btnSquareRoot = new JButton("R");
         btnEquals = new JButton("=");
         btnClear = new JButton("C");
+        btnToggle = new JButton(toggleMode);
 
         // Initialize, style, and add action listeners to number buttons
         numBtn = new JButton[4];
@@ -54,6 +61,7 @@ public class GUI extends JFrame{
         btnSquare.setFont(new Font("Monospaced", Font.BOLD, 22));
         btnSquareRoot.setFont(new Font("Monospaced", Font.BOLD, 22));
         btnClear.setFont(new Font("Monospaced", Font.BOLD, 22));
+        btnToggle.setFont(new Font("Monospaced", Font.BOLD, 15));
 
         // Setting Clear and "_" button color
         btnClear.setBackground(Color.RED);
@@ -72,6 +80,7 @@ public class GUI extends JFrame{
         row1.setLayout(new BoxLayout(row1, BoxLayout.LINE_AXIS));
         row2.setLayout(new BoxLayout(row2, BoxLayout.LINE_AXIS));
         row3.setLayout(new BoxLayout(row3, BoxLayout.LINE_AXIS));
+        row4.setLayout(new BoxLayout(row4, BoxLayout.LINE_AXIS));
 
         // Add buttons to rows
         row1.add(btnAdd);
@@ -86,6 +95,7 @@ public class GUI extends JFrame{
         row3.add(numBtn[3]);
         row3.add(btnClear);
         row3.add(btnEquals);
+        row4.add(btnToggle);
 
         // Adding rows to the Main panel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -94,6 +104,7 @@ public class GUI extends JFrame{
         mainPanel.add(row1);
         mainPanel.add(row2);
         mainPanel.add(row3);
+        mainPanel.add(row4);
 
         // Functionality
         // For numbers
@@ -102,10 +113,25 @@ public class GUI extends JFrame{
             numBtn[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (firstNumber == 0)
+                    showingOutput = false;
+                    if (firstNumber == 0){
                         output.setText(null);
-                    output.setText(output.getText() + finalI);
-                    firstNumber += finalI;
+                    }
+                    if(operator == '\0') {
+                        String newFirstNumber = output.getText() + finalI;
+                        output.setText(newFirstNumber);
+                        firstNumber = Integer.parseInt(newFirstNumber);
+                        System.out.println("First Num: " + firstNumber);
+                    }
+                    else {
+                        if (secondNumber == 0){
+                            output.setText(null);
+                        }
+                        String newSecondNumber = output.getText() + finalI;
+                        output.setText(newSecondNumber);
+                        secondNumber = Integer.parseInt(newSecondNumber);
+                        System.out.println("Second Num: " + secondNumber);
+                    }
                 }
             });
         }
@@ -114,18 +140,13 @@ public class GUI extends JFrame{
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 handleOperatorClick('+');
-
-
             }
         });
         btnSubtract.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 handleOperatorClick('-');
-
             }
         });
 
@@ -133,27 +154,37 @@ public class GUI extends JFrame{
         btnMultiply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('*');
             }
         });
         btnDivide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('/');
             }
         });
 
-        // For Square Square Root
+        // For Square + Square Root
         btnSquare.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('\u00B2');
             }
         });
         btnSquareRoot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                handleOperatorClick('R');
+            }
+        });
+
+        // For Clear
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                output.setText("");
+                firstNumber = 0;
+                secondNumber = 0;
             }
         });
 
@@ -161,23 +192,43 @@ public class GUI extends JFrame{
         btnEquals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (operator != '\0') {
+                secondNumber = Integer.parseInt(output.getText());
+                String firstNum = String.valueOf(firstNumber);
+                String secondNum = String.valueOf(secondNumber);
+                System.out.println(firstNum);
+                System.out.println(secondNum);
+                if (!firstNum.matches("[0123]+") || !secondNum.matches("[0123]+")){
+                    output.setText("use btns");
+                }
+                else{
                     performOperation();
                 }
+                showingOutput = true;
             }
         });
 
-        // For Clear Equals
-        btnClear.addActionListener(new ActionListener() {
+        // For Toggle
+        btnToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                output.setText("0");
+                if (showingOutput){
+                if(toggleMode == "Quaternary") {
+                    toggleMode = "Decimal";
+                    btnToggle.setText(toggleMode);
+                    if(showingOutput) {
+                        int outputNum = Integer.parseInt(output.getText());
+                        output.setText(Integer.toString(quaternary.quaternaryToDecimal(outputNum)));
+                    }
+                }
+                else {
+                    toggleMode = "Quaternary";
+                    btnToggle.setText(toggleMode);
+                    if(showingOutput) {
+                        int outputNum = Integer.parseInt(output.getText());
+                        output.setText(Integer.toString(quaternary.decimalToQuaternary(outputNum)));
+                    }
+                }
             }
-        });
-        btnEquals.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
             }
         });
 
@@ -186,7 +237,7 @@ public class GUI extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
-        this.setSize(275,225);
+        this.setSize(275,250);
 
     }
     private void handleOperatorClick(char op) {
@@ -200,26 +251,71 @@ public class GUI extends JFrame{
             operator = op;
         }
     }
+
     // Method to perform addition or subtraction
     private void performOperation() {
-        String currentText = output.getText();
-        secondNumber = Integer.parseInt(currentText);
-
+        quaternary = new Quaternary();
         if (operator == '+') {
-            int result = firstNumber + secondNumber;
-            output.setText(Integer.toString(result));
-        } else if (operator == '-') {
-            int result = firstNumber - secondNumber;
-            output.setText(Integer.toString(result));
+            int result = quaternary.quaternaryAddition(firstNumber, secondNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
         }
-
+        else if (operator == '-') {
+            int result = quaternary.quaternarySubtraction(firstNumber, secondNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '*') {
+            int result = quaternary.quaternaryMultiplication(firstNumber, secondNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '/') {
+            if (secondNumber == 0){
+                output.setText("Err: /0");
+            }
+            else{
+                int result = quaternary.quaternaryDivision(firstNumber, secondNumber);
+                if(toggleMode == "Quaternary") {
+                    output.setText(Integer.toString(result));
+                }
+                else {
+                    output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+                }
+            }
+        }
+        else if (operator == 'R') {
+            int result = quaternary.quaternarySquareRoot(firstNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
+        else if (operator == '\u00B2') {
+            int result = quaternary.quaternarySquare(firstNumber);
+            if(toggleMode == "Quaternary") {
+                output.setText(Integer.toString(result));
+            }
+            else {
+                output.setText(Integer.toString(quaternary.quaternaryToDecimal(result)));
+            }
+        }
         operator = '\0';
     }
-
-
-
-
-
 
 
     public static void main(String[] args){
